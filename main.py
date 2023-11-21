@@ -13,15 +13,12 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # Helper functions
-
-
 def extract_lower_bound(age_group):
     '''Extract the lower bound of an age group.'''
     if '-' in age_group:
         return int(age_group.split(' - ')[0])
     else:
         return 85
-
 
 # Load the data
 df_all = pd.read_csv('all_data.csv')
@@ -146,8 +143,8 @@ df_age = df_age.drop(columns=['Age_Lower_Bound'])
 
 st.header("Detected cancer cases by age group in 2020")
 chart = alt.Chart(df_age).mark_bar().encode(
-    x=alt.X('Age:N', title='Age Group', sort=df_age['Age'].tolist()),
-    y=alt.Y('Count:Q', title='Count'),
+    x=alt.X('Age:N', title=None, sort=df_age['Age'].tolist(), axis=alt.Axis(labelAngle=-45)),
+    y=alt.Y('Count:Q', title=None),
     tooltip=[alt.Tooltip('Age:N', title='Age Group'), alt.Tooltip(
         'Count:Q', format=',', title='Count')]
 )
