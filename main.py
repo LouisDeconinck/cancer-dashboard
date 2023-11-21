@@ -32,12 +32,13 @@ df_agegroups['Age_Lower_Bound'] = df_agegroups['Age'].apply(extract_lower_bound)
 df_agegroups = df_agegroups.sort_values(by=['Age_Lower_Bound'])
 age = col2.selectbox('Age Group', ["All"] + df_agegroups['Age'].tolist())
 
+df_latest_gender_age = df_latest
 if gender != 'All':
-    df_latest = df_latest[df_latest['Gender'] == gender]
+    df_latest_gender_age = df_latest[df_latest['Gender'] == gender]
 if age != 'All':
-    df_latest = df_latest[df_latest['Age'] == age]
+    df_latest_gender_age = df_latest[df_latest['Age'] == age]
 
-df_cancer_type = df_latest.groupby('Name')['Count'].sum()
+df_cancer_type = df_latest_gender_age.groupby('Name')['Count'].sum()
 
 df_cancer_type = df_cancer_type.sort_values(ascending=False)
 df_top10 = df_cancer_type.head(9).reset_index()
